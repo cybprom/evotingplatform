@@ -1,0 +1,152 @@
+[
+  {
+    "_id": "1",
+    "creator": "Damola.eth",
+    "name": "CSE CLASS ELECTION",
+    "type": "Private",
+    "description": "The End SARS is a protest currently going on in Nigeria to say NO to police burtality in the country. To enable a smooth and productive protests, Funds are needed and Crypto is the only way funds can be gotten without the government freezing the account of protest stakeholders.",
+    "status": "Active",
+    "votes": 176,
+    "date": "24/4/2023",
+    "options": ["Ige Adedamola", "Olaniyan Blessing", "Idowu Liberty"],
+    "amenities": ["Wifi", "Full kitchen"],
+    "rates": {
+      "weekly": 1100,
+      "monthly": 4200
+    },
+    "seller_info": {
+      "name": "John Doe",
+      "email": "john@gmail.com",
+      "phone": "617-555-5555"
+    },
+    "images": ["a1.jpg", "a2.jpg", "a3.jpg"],
+    "is_featured": false,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "2",
+    "creator": "0xbb...7gb",
+    "name": "Push for SUG Election",
+    "type": "Public",
+    "description": "The End SARS is a protest currently going on in Nigeria to say NO to police burtality in the country. To enable a smooth and productive protests, Funds are needed and Crypto is the only way funds can be gotten without the government freezing the account of protest stakeholders.",
+    "status": "Closed",
+    "votes": 16,
+    "date": "20/4/2023",
+    "options": ["Ige Adedamola", "Olaniyan Blessing", "Idowu Liberty"],
+    "amenities": ["Wifi", "Full kitchen"],
+    "rates": {
+      "weekly": 1100,
+      "monthly": 4200
+    },
+    "seller_info": {
+      "name": "John Doe",
+      "email": "john@gmail.com",
+      "phone": "617-555-5555"
+    },
+    "images": ["a1.jpg", "a2.jpg", "a3.jpg"],
+    "is_featured": false,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "3",
+    "creator": "0xCt2h...5bny",
+    "name": "Desolution of political parties",
+    "type": "Private",
+    "description": "The End SARS is a protest currently going on in Nigeria to say NO to police burtality in the country. To enable a smooth and productive protests, Funds are needed and Crypto is the only way funds can be gotten without the government freezing the account of protest stakeholders.",
+    "status": "Active",
+    "votes": 186,
+    "date": "04/3/2023",
+    "options": ["Ige Adedamola", "Olaniyan Blessing", "Idowu Liberty"],
+    "amenities": ["Wifi", "Full kitchen"],
+    "rates": {
+      "weekly": 1100,
+      "monthly": 4200
+    },
+    "seller_info": {
+      "name": "John Doe",
+      "email": "john@gmail.com",
+      "phone": "617-555-5555"
+    },
+    "images": ["a1.jpg", "a2.jpg", "a3.jpg"],
+    "is_featured": false,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "4",
+    "creator": "cybprom.eth",
+    "name": "Genreal School Election",
+    "type": "Public",
+    "description": "The End SARS is a protest currently going on in Nigeria to say NO to police burtality in the country. To enable a smooth and productive protests, Funds are needed and Crypto is the only way funds can be gotten without the government freezing the account of protest stakeholders.",
+    "status": "Active",
+    "votes": 1860,
+    "date": "09/3/2023",
+    "options": ["Ige Adedamola", "Olaniyan Blessing", "Idowu Liberty"],
+    "amenities": ["Wifi", "Full kitchen"],
+    "rates": {
+      "weekly": 1100,
+      "monthly": 4200
+    },
+    "seller_info": {
+      "name": "John Doe",
+      "email": "john@gmail.com",
+      "phone": "617-555-5555"
+    },
+    "images": ["a1.jpg", "a2.jpg", "a3.jpg"],
+    "is_featured": false,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "5",
+    "creator": "Tanim0la.eth",
+    "name": "Mock Election Test 1",
+    "type": "Private",
+    "description": "The End SARS is a protest currently going on in Nigeria to say NO to police burtality in the country. To enable a smooth and productive protests, Funds are needed and Crypto is the only way funds can be gotten without the government freezing the account of protest stakeholders.",
+    "status": "Closed",
+    "votes": 162,
+    "date": "02/3/2023",
+    "options": ["Ige Adedamola", "Olaniyan Blessing", "Idowu Liberty"],
+    "amenities": ["Wifi", "Full kitchen"],
+    "rates": {
+      "weekly": 1100,
+      "monthly": 4200
+    },
+    "seller_info": {
+      "name": "John Doe",
+      "email": "john@gmail.com",
+      "phone": "617-555-5555"
+    },
+    "images": ["a1.jpg", "a2.jpg", "a3.jpg"],
+    "is_featured": false,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "6",
+    "creator": "Vosibop.eth",
+    "name": "Mock Election Test 2",
+    "type": "Private",
+    "description": "The End SARS is a protest currently going on in Nigeria to say NO to police burtality in the country. To enable a smooth and productive protests, Funds are needed and Crypto is the only way funds can be gotten without the government freezing the account of protest stakeholders.",
+    "status": "Active",
+    "votes": 16250,
+    "date": "01/3/2023",
+    "options": ["Ige Adedamola", "Olaniyan Blessing", "Idowu Liberty"],
+    "amenities": ["Wifi", "Full kitchen"],
+    "rates": {
+      "weekly": 1100,
+      "monthly": 4200
+    },
+    "seller_info": {
+      "name": "John Doe",
+      "email": "john@gmail.com",
+      "phone": "617-555-5555"
+    },
+    "images": ["a1.jpg", "a2.jpg", "a3.jpg"],
+    "is_featured": false,
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  }
+]
