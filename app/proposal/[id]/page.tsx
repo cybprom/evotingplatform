@@ -41,7 +41,7 @@ export default function ProposalPage() {
         {/* First part */}
         <div className="flex items-start flex-col md:flex-row md:justify-between gap-10 md:gap-16">
           {/* Left content */}
-          <div className=" bg-[#1F1E1E] rounded-2xl p-6 md:w-[58%] w7/12 space-y-5 md:space-y-10">
+          <div className=" bg-[#1F1E1E] rounded-2xl p-6 md:w-[58%] w7/12 space-y-5 md:space-y-8">
             <div className="flex justify-between">
               <div className="flex">
                 <div>
@@ -223,7 +223,8 @@ export default function ProposalPage() {
                 <button
                   className={`w-full text-center py-3 px-10 ${
                     activeButton ? "bg-[#4463D1]" : "bg-[#1A1A1A]"
-                  }  rounded-3xl flex justify-center box-shadow-white-inset transition-colors`}
+                  }  rounded-3xl flex justify-center shadow-whiteinset transition-colors`}
+                  style={{ boxShadow: "0px 3px 4px 0px #FFFFFF40 inset" }}
                 >
                   Vote
                 </button>

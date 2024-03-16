@@ -49,7 +49,8 @@ export default function Navbar() {
             {isDropdownOpen && (
               <div className=" absolute right-0 top-11 md:top-14 bg-[#0D0D0D] border-2 border-[#434343] rounded-2xl w-max px-2 py-4 md:px-2 md:py-4 text-white space-y7 md:space-y-2">
                 <Link
-                  href={"/create"}
+                  onClick={() => setIsDropdownOpen(false)}
+                  href={"/create-private"}
                   className="flex items-center hover:bg-[#1C1C1C] hover:rounded-2xl px-2 py-3 md:px-5 md:py-3"
                 >
                   <span className="mr-2">
@@ -71,7 +72,8 @@ export default function Navbar() {
                   Create a private proposal
                 </Link>
                 <Link
-                  href={"/create"}
+                  onClick={() => setIsDropdownOpen(false)}
+                  href={"/create-public"}
                   className="flex items-center hover:bg-[#1C1C1C] hover:rounded-2xl px-2 py-3 md:px-5 md:py-3"
                 >
                   {" "}
