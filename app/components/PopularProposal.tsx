@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { ethers } from "ethers";
+import voteContract from "@/ethereum/vote";
 import proposal from "@/proposal.json";
 
 export default function PopularProposal() {
@@ -8,8 +10,9 @@ export default function PopularProposal() {
     <div>
       {/* MOBILE */}
 
-      {proposal.map((proposal) => (
+      {proposal.map((proposal, index) => (
         <Link
+          key={index}
           href={`/proposal/${proposal._id}`}
           className="h-[187px] flex flex-col justify-between bg-[#131313] rounded-lg py-6 px-3 mb-7 gap8 text-white md:hidden"
         >
@@ -107,8 +110,8 @@ export default function PopularProposal() {
                         gradientUnits="userSpaceOnUse"
                         gradientTransform="translate(7.3125 5.0625) rotate(119.578) scale(7.97702)"
                       >
-                        <stop stop-color="#F0F0F0" />
-                        <stop offset="0.5625" stop-color="#506FDD" />
+                        <stop stopColor="#F0F0F0" />
+                        <stop offset="0.5625" stopColor="#506FDD" />
                       </radialGradient>
                     </defs>
                   </svg>
@@ -151,11 +154,15 @@ export default function PopularProposal() {
           <tbody className="text-white">
             {proposal.map((proposal) => (
               <tr className="bgwhite darkbg-gray-800">
+                {/* <Link href={`/proposal/${proposal._id}`}></Link> */}
                 <th
                   scope="row"
                   className="px6 py-4 font-medium text-gray900 whitespace-nowrap darktext-white"
                 >
-                  <div className="flex items-center space-x-3">
+                  <Link
+                    href={`/proposal/${proposal._id}`}
+                    className="flex items-center space-x-3"
+                  >
                     <span>
                       <Image
                         src="/classelection.png"
@@ -165,7 +172,7 @@ export default function PopularProposal() {
                       />
                     </span>
                     <span className="">{proposal.name}</span>
-                  </div>
+                  </Link>
                 </th>
                 <td className="px-6 py-4">{proposal.creator}</td>
                 <td className="px-6 py-4">{proposal.date}</td>
@@ -193,8 +200,8 @@ export default function PopularProposal() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M12 10C13.1046 10 14 10.8954 14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10ZM5 10C6.10457 10 7 10.8954 7 12C7 13.1046 6.10457 14 5 14C3.89543 14 3 13.1046 3 12C3 10.8954 3.89543 10 5 10ZM19 10C20.1046 10 21 10.8954 21 12C21 13.1046 20.1046 14 19 14C17.8954 14 17 13.1046 17 12C17 10.8954 17.8954 10 19 10Z"
                         fill="#808080"
                       />

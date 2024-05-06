@@ -1,26 +1,66 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import CustomFileUpload from "./CustomFileUpload";
 import UploadPlaceHolder from "./UploadPlaceHolder";
 
-export default function AddDescription() {
+interface addDescriptionProps {
+  onNext: () => void;
+  formData: {
+    title: string;
+    description: string;
+    type: string;
+    options: string[];
+    votesNo: number;
+    imgLink: string;
+  };
+  setFormData: React.Dispatch<
+    SetStateAction<{
+      title: string;
+      description: string;
+      type: string;
+      options: string[];
+      votesNo: number;
+      imgLink: string;
+    }>
+  >;
+
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleTextArea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+export default function AddDescription({
+  onNext,
+  formData,
+  setFormData,
+  handleChange,
+  handleTextArea,
+}: addDescriptionProps) {
   const router = useRouter();
 
-  const [text, setText] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
-  const wordCount = text.length;
+  // const [text, setText] = useState<string>("");
+  // const [title, setTitle] = useState<string>("");
+  const wordCount = formData.description.length;
 
-  const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
-  };
+  // const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //   setText(event.target.value);
+  // };
 
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
+  // const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setTitle(event.target.value);
+  //   console.log(event.target.value);
+  // };
 
   // Button is enabled only when both input fields are not empty
-  const isButtonActive = text.trim() !== "" && title.trim() !== "";
+  // const isButtonActive = text.trim() !== "" && title.trim() !== "";
+  const isButtonActive =
+    formData.description.trim() !== "" && formData.title.trim() !== "";
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    onNext();
+  };
 
   return (
     <div>
@@ -55,18 +95,21 @@ export default function AddDescription() {
         <div className="border border-[#434343] rounded-2xl flex flex-col itemscenter justifycenter container mx-auto md:w-[40%] pt-12 pb-6 px-5    h[500px]">
           <div className=" space-y-5">
             {/* DIV for upload */}
-            <CustomFileUpload />
+            <CustomFileUpload formData={formData} setFormData={setFormData} />
 
             {/* DIV for form */}
-            <form className=" space-y-10">
+            <form onSubmit={handleSubmit} className=" space-y-10">
               <div className="flex flex-col space-y-2">
                 <label htmlFor="title">Proposal title</label>
                 <input
                   type="text"
                   id="title"
+                  name="title"
                   className=" border border-[#434343] bg-[#131313] outline-none p-2 rounded-lg"
-                  value={title}
-                  onChange={handleTitleChange}
+                  value={formData.title}
+                  onChange={handleChange}
+                  // value={title}
+                  // onChange={handleTitleChange}
                   required
                 />
               </div>
@@ -74,11 +117,15 @@ export default function AddDescription() {
               <div className="flex flex-col space-y-2">
                 <label htmlFor="description">Description</label>
                 <textarea
+                  id="description"
+                  name="description"
                   rows={8}
                   maxLength={2000}
                   className="border border-[#434343] bg-[#131313] outline-none p-2 rounded-lg resize-none"
-                  value={text}
-                  onChange={handleTextChange}
+                  value={formData.description}
+                  onChange={handleTextArea}
+                  // value={text}
+                  // onChange={handleTextChange}
                   // autoCorrect="on"
                 ></textarea>
                 <span className=" text-right text-sm text-[#4A4A4A]">
@@ -90,11 +137,14 @@ export default function AddDescription() {
             {/* continue button */}
             <div className="p-4 mb5">
               <button
+                type="submit"
                 className={`text-center py-4 px-10 ${
                   isButtonActive
                     ? " bg-[#4463D1] text-white shadow-white-inset"
                     : "bg-[#1A1A1A] text-[#4A4A4A] "
                 }  rounded-3xl flex justify-center shadow-white-inset transition-colors ml-auto`}
+                disabled={!isButtonActive}
+                onClick={() => onNext()}
                 // className="wfull text-center py-4 px-10 rounded-3xl flex justify-center shadow-whiteinset transition-colors bg-[#1A1A1A]"
                 // style={{ boxShadow: "0px 3px 4px 0px #66666640 inset" }}
               >

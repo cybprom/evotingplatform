@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-main;
+  @apply bg-main text-white;
 }
 
 button {
@@ -13,5 +13,5 @@ button {
     text-sm;
 }
 button:hover {
-  @apply bg-opacity-90;
+  @apply bg-opacity-70;
 }

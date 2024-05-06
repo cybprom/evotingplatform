@@ -1,10 +1,142 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, SetStateAction } from "react";
+import { ethers } from "ethers";
 import Image from "next/image";
 import Link from "next/link";
+import voteContract from "@/ethereum/vote";
+// import ConnectWalletButton from "./ConnectWalletButton";
+export interface AccountType {
+  address?: string;
+  balance?: string;
+  chainId?: string;
+  network?: string;
+}
+
+interface signerProps {
+  setSigner: React.Dispatch<SetStateAction<ethers.JsonRpcSigner>>;
+}
 
 export default function Navbar() {
+  const [accountData, setAccountData] = useState<AccountType>({});
+  const [message, setMessage] = useState<string>(
+    "Hello, it's Promise!... i'm telling you to sign this because i know you trust me... Welcome to E-voting Platform"
+  );
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDisconnectedOpen, setIsDisconnectedOpen] = useState(false);
+
+  const [walletAddress, setWalletAddress] = useState<string>("");
+
+  // temporary
+  const [signer, setSigner] = useState<ethers.JsonRpcSigner>();
+  const [contract, setContract] = useState<ethers.ContractRunner>();
+
+  useEffect(() => {
+    getCurrentWalletConnected();
+  }, []);
+
+  const connectWallet = async () => {
+    if (typeof window !== "undefined" && window.ethereum) {
+      try {
+        // Requesting access to the user's MetaMask account
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+
+        // Get the connected Ethereum address
+        const address = accounts[0]; // Oxeb1
+
+        // // Get the connected wallet address
+        // const provider = new ethers.providers.Web3Provider(window.ethereum);
+        // Create an ethers.js provider using the injected provider from MetaMask
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        // Set signer // remove later
+        setSigner(signer);
+        console.log(signer.address, provider);
+        // const address = await (await signer).getAddress(); // Another way to get the address
+
+        // local contract
+        // setContract(voteContract(provider));
+
+        // Get the account balance
+        const balance = await provider.getBalance(address);
+        // balance: ethers.formatEther(balance)
+        // Get the network ID from MetaMask
+        const network = await provider.getNetwork();
+        // The chainId property is a bigint, change to a string
+        // chainId: network.chainId.toString(),
+        // network: network.name,
+        // console.log(
+        //   network.chainId.toString(),
+        //   network.name,
+        //   ethers.formatEther(balance)
+        // );
+        setAccountData({
+          address,
+          balance: ethers.formatEther(balance),
+          // The chainId property is a bigint, change to a string
+          chainId: network.chainId.toString(),
+          network: network.name,
+        });
+
+        setWalletAddress(address);
+
+        await signer.signMessage(message); // sign message
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.error(
+        "MetaMask not installed or not available in this environment"
+      );
+    }
+  };
+
+  const getCurrentWalletConnected = async () => {
+    if (typeof window !== "undefined" && window.ethereum) {
+      try {
+        // Requesting access to the user's MetaMask account
+        const accounts = await window.ethereum.request({
+          method: "eth_accounts",
+        });
+
+        if (accounts.length > 0) {
+          setWalletAddress(accounts[0]);
+        } else {
+          console.log("Connect to MetaMask account");
+        }
+
+        // Get the connected Ethereum address
+        const address = accounts[0]; // Oxeb1
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.error(
+        "MetaMask not installed or not available in this environment"
+      );
+    }
+  };
+
+  const disconnectWallet = async () => {
+    try {
+      if (window.ethereum) {
+        await window.ethereum.request({ method: "eth_accounts" });
+        setWalletAddress("");
+        setIsDisconnectedOpen(false);
+        // setIsConnected(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const disconnectWalletToogle = () => {
+    if (walletAddress) {
+      setIsDisconnectedOpen(!isDisconnectedOpen);
+    }
+  };
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -13,7 +145,6 @@ export default function Navbar() {
   return (
     <div className="mt-2">
       <div className="fixed top-0 right-0 left-0 flex justify-between items-center bg-[#0D0D0D] z-20 border-b border-[#434343] p-4 px-5 pb-3 md:p-6 md:px-14 md:pb-4 mx-auto">
-        {/* <h1 className="text-2xl text-[#C3C3C3] font-bold">evoting platform</h1> */}
         <Image
           src="/evotingLogo.svg"
           width={180}
@@ -22,9 +153,69 @@ export default function Navbar() {
           className="w-[160px] md:w-[190px]"
         />
         <div className="flex items-center">
-          <button className=" text-white border-[#2B2B2B] border-2 rounded-full md:px-5 md:py-3">
-            Connect wallet
-          </button>
+          {/* <button className=" text-white border-[#2B2B2B] border-2 rounded-full md:px-5 md:py-3">
+            {word}
+          </button> */}
+          <div className="relative">
+            <div
+              className="relative cursor-pointer"
+              onClick={disconnectWalletToogle}
+            >
+              {walletAddress ? (
+                <p className="text-white border-[#2B2B2B] border-2 rounded-full md:px-5 md:py-3">
+                  {walletAddress.slice(0, 5)}...
+                  {walletAddress.slice(38)}
+                </p>
+              ) : (
+                <button
+                  className=" text-white border-[#2B2B2B] border-2 rounded-full md:px-5 md:py-3"
+                  onClick={connectWallet}
+                >
+                  Connect Wallet
+                </button>
+              )}
+            </div>
+
+            {isDisconnectedOpen && (
+              <div
+                className="flex items-center absolute cursor-pointer md:right-0 top-12 -left-9 md:-left-14 md:top-14 bg-[#0D0D0D] border-2 border-[#434343] rounded-2xl  px-1 py-2 md:px-3 md:py-3"
+                onClick={disconnectWallet}
+              >
+                <span className=" mr-2 md:mr-3">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.41675 6.3C7.67508 3.3 9.21675 2.075 12.5917 2.075H12.7001C16.4251 2.075 17.9167 3.56666 17.9167 7.29166V12.725C17.9167 16.45 16.4251 17.9417 12.7001 17.9417H12.5917C9.24175 17.9417 7.70008 16.7333 7.42508 13.7833"
+                      stroke="#D92223"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M12.4999 10H3.0166"
+                      stroke="#D92223"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M4.87492 7.20833L2.08325 10L4.87492 12.7917"
+                      stroke="#D92223"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+                <p className=" text-sm md:text-base">Disconnect Wallet</p>
+              </div>
+            )}
+          </div>
           <div className="relative">
             <button
               className=" p-1 ml-4 md:ml-5 md:p-2 border-[1.5px] border-[#2B2B2B] md:border-2 rounded-full"
@@ -50,7 +241,8 @@ export default function Navbar() {
               <div className=" absolute right-0 top-11 md:top-14 bg-[#0D0D0D] border-2 border-[#434343] rounded-2xl w-max px-2 py-4 md:px-2 md:py-4 text-white space-y7 md:space-y-2">
                 <Link
                   onClick={() => setIsDropdownOpen(false)}
-                  href={"/create-private"}
+                  // href={"/create-private"}
+                  href={"/"}
                   className="flex items-center hover:bg-[#1C1C1C] hover:rounded-2xl px-2 py-3 md:px-5 md:py-3"
                 >
                   <span className="mr-2">
@@ -62,8 +254,8 @@ export default function Navbar() {
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
+                        fillRule="evenodd"
+                        clipRule="evenodd"
                         d="M8.00002 1.33334C9.79252 1.33334 11.2546 2.74821 11.3303 4.52208L11.3334 4.66668V6.66668C12.4379 6.66668 13.3334 7.56211 13.3334 8.66668V12.6667C13.3334 13.7712 12.4379 14.6667 11.3334 14.6667H4.66669C3.56212 14.6667 2.66669 13.7712 2.66669 12.6667V8.66668C2.66669 7.56211 3.56212 6.66668 4.66669 6.66668V4.66668C4.66669 2.82573 6.15907 1.33334 8.00002 1.33334ZM11.3334 8.00001H4.66669C4.2985 8.00001 4.00002 8.29849 4.00002 8.66668V12.6667C4.00002 13.0349 4.2985 13.3333 4.66669 13.3333H11.3334C11.7015 13.3333 12 13.0349 12 12.6667V8.66668C12 8.29849 11.7015 8.00001 11.3334 8.00001ZM8.11754 2.67007L8.00002 2.66668C6.9349 2.66668 6.06425 3.49929 6.00342 4.54916L6.00002 4.66668V6.66668H10V4.66668C10 3.60156 9.16741 2.7309 8.11754 2.67007L8.00002 2.66668L8.11754 2.67007Z"
                         fill="white"
                       />

@@ -4,14 +4,20 @@ import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-interface VoteComponentProps {
-  id: number;
-  setActiveButton: (value: number) => void;
-  activeButton: number;
-  children: React.ReactNode;
+interface previewProps {
+  onPrev: () => void;
+  onSubmit: () => void;
+  formData: {
+    title: string;
+    description: string;
+    type: string;
+    options: string[];
+    votesNo: number;
+    imgLink: string;
+  };
 }
 
-export default function ProposalPage() {
+export default function Preview({ onPrev, onSubmit, formData }: previewProps) {
   const router = useRouter();
 
   const [voteWidth, setVoteWidth] = useState<number>(37);
@@ -26,7 +32,6 @@ export default function ProposalPage() {
   const style = {
     width: `${widthVar}%`,
   };
-
   return (
     <div className=" mt-24 text-white container p-4 px5 pb-3 space-y-5 md:p-6 md:px10 md:pb-4 mx-auto">
       <button
@@ -36,6 +41,23 @@ export default function ProposalPage() {
         <span className=" text-xl">←</span> Back
       </button>
 
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl">Preview</h1>
+        <button
+          // className={`text-center py-4 px-10 ${
+          //   isButtonActive
+          //     ? " bg-[#4463D1] text-white shadow-white-inset"
+          //     : "bg-[#1A1A1A] text-[#4A4A4A] "
+          // }  rounded-3xl flex justify-center shadow-white-inset transition-colors ml-auto`}
+          type="button"
+          onClick={onSubmit}
+          className="wfull text-center py-[10px] md:py-3 px-10 rounded-3xl flex justify-center shadow-white-inset transition-colors text-white bg-[#4463D1] ml-auto"
+          // style={{ boxShadow: "0px 3px 4px 0px #66666640 inset" }}
+        >
+          Create
+        </button>
+      </div>
+
       {/* Container */}
       <div className="flex flex-col gap-10 p4 md:p-6 md:px-14 mx-auto">
         {/* First part */}
@@ -43,18 +65,24 @@ export default function ProposalPage() {
           {/* Left content */}
           <div className=" bg-[#1F1E1E] rounded-2xl p-6 w-full md:w-[58%] w7/12 space-y-5 md:space-y-8">
             <div className="flex justify-between">
-              <div className="flex">
-                <div>
+              <div className="flex items-center">
+                {/* <div>
                   <Image
                     src="/classelection.png"
                     width={32}
                     height={32}
                     alt="election-logo"
                   />
-                </div>
-                <div className="ml-[14px]">
+                </div> */}
+                {/* ///////////////// */}
+                <div
+                  className="w-10 h-10 rounded-full overflow-hidden shadow-lg bg-center bg-cover cursor-pointer"
+                  style={{ backgroundImage: `url(${formData.imgLink})` }}
+                ></div>
+                {/* ///////////////// */}
+                <div className="ml-[12px]">
                   {/* <h3>{proposal.name}</h3> */}
-                  <h3>CSE CLASS ELECTION</h3>
+                  <h3>{formData.title}</h3>
                 </div>
               </div>
 
@@ -72,13 +100,14 @@ export default function ProposalPage() {
 
             {/* About */}
             <div className="mt5">
-              <h2 className=" text-[#808080] mb-3">About</h2>
-              <p className=" text-sm font-normal">
-                The End SARS is a protest currently going on in Nigeria to say
+              <h2 className=" text-[#808080] mb-3">Description</h2>
+              <p className=" text-sm font-normal break-words">
+                {/* The End SARS is a protest currently going on in Nigeria to say
                 NO to police burtality in the country. To enable a smooth and
                 productive protests, Funds are needed and Crypto is the only way
                 funds can be gotten without the government freezing the account
-                of protest stakeholders.
+                of protest stakeholders. */}
+                {formData.description}
               </p>
             </div>
 
@@ -137,7 +166,7 @@ export default function ProposalPage() {
             <div className="flex justify-between items-center">
               {/* People who voted */}
               <div className="flex items-center">
-                <div className="flex">
+                {/* <div className="flex">
                   <span>
                     <svg
                       width="12"
@@ -161,40 +190,52 @@ export default function ProposalPage() {
                           gradientUnits="userSpaceOnUse"
                           gradientTransform="translate(7.3125 5.0625) rotate(119.578) scale(7.97702)"
                         >
-                          <stop stop-color="#F0F0F0" />
-                          <stop offset="0.5625" stop-color="#506FDD" />
+                          <stop stopColor="#F0F0F0" />
+                          <stop offset="0.5625" stopColor="#506FDD" />
                         </radialGradient>
                       </defs>
                     </svg>
                   </span>
-                </div>
-                <span className="ml-3 text-[#808080]">
+                </div> */}
+                {/* <span className="ml-3 text-[#808080]">
                   +176 people have voted
-                </span>
+                </span> */}
               </div>
 
               {/* Private / Public */}
               <div className=" flex items-center self-start border border-[#808080] rounded-3xl py-[3px] px-[16px]">
-                Private
+                Public
               </div>
             </div>
           </div>
 
           {/* Right Content */}
           <div className=" border border-[#2B2B2B] rounded-2xl h[656px] w[521px] w-full md:w-[38%]">
-            <h1 className="p-6 font-semibold">
-              Cast your vote for your preferred class representative
-            </h1>
+            <h1 className="p-6 font-semibold">Options</h1>
             <div className="w-full h-[1px] bg-[#2B2B2B]"></div>
             {/* Click to vote */}
             <div className="mt-3">
               <div className="wfull p-4 space-y-5">
-                <VoteButton
+                {/* {formData.options.map(() =>)} */}
+                {/* Check this, there's a bug here ... the id */}
+                {formData.options.map((option, id) => (
+                  <VoteButton
+                    id={id + 1}
+                    key={id}
+                    setActiveButton={setActiveButton}
+                    activeButton={activeButton}
+                  >
+                    {/* Ige Adedamola{" "} */}
+                    {option}
+                  </VoteButton>
+                ))}
+                {/* <VoteButton
                   id={1}
                   setActiveButton={setActiveButton}
                   activeButton={activeButton}
                 >
                   Ige Adedamola{" "}
+                  
                 </VoteButton>
                 <VoteButton
                   id={2}
@@ -216,10 +257,10 @@ export default function ProposalPage() {
                   activeButton={activeButton}
                 >
                   Oladipupo Michael{" "}
-                </VoteButton>
+                </VoteButton> */}
               </div>
               {/* vote button */}
-              <div className="p-4 mb-5">
+              {/* <div className="p-4 mb-5">
                 <button
                   className={`w-full text-center py-3 px-10 ${
                     activeButton ? "bg-[#4463D1]" : "bg-[#1A1A1A]"
@@ -228,85 +269,7 @@ export default function ProposalPage() {
                 >
                   Vote
                 </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Second part */}
-        <div className=" border border-[#2B2B2B] rounded-2xl h[456px] w[521px]">
-          <div className="flex items-center justify-between p-6">
-            <h1 className="font-semibold">Current result</h1>
-            <p className="text-[#4463D1] font-semibold">270 total votes</p>
-          </div>
-          {/* Line */}
-          <div className="w-full h-[1px] bg-[#2B2B2B]"></div>
-          {/* votes */}
-          <div className="p-5 py-8 space-y-10">
-            {/* Vote 1 */}
-            <div>
-              <div className="relative w-full bg-[#202842] h-[12px] rounded-3xl mb-2">
-                <div
-                  // className={`absolute left-0 right-0 w-[${Math.round(
-                  //   (voteNumber / 270) * 100
-                  // )}%] bg-[#4463D1] h-[12px] rounded-3xl`}
-                  className="absolute left-0 right-0 w-[44.4%] bg-[#4463D1] h-[12px] rounded-3xl"
-                ></div>
-              </div>
-              {/* labels */}
-              <div className="flex justify-between">
-                <span>Ige Adedamola</span>
-                <span>120 votes</span>
-              </div>
-            </div>
-
-            {/* Vote 2 */}
-            <div>
-              <div className="relative w-full bg-[#202842] h-[12px] rounded-3xl mb-2">
-                <div
-                  // className={`absolute left-0 right-0 w-[${
-                  //   (68 / 270) * 100
-                  // }%] bg-[#4463D1] h-[12px] rounded-3xl`}
-                  className="absolute left-0 right-0 w-[25.1%] bg-[#4463D1] h-[12px] rounded-3xl"
-                ></div>
-              </div>
-              {/* labels */}
-              <div className="flex justify-between">
-                <span>Olaniyan Blessing</span>
-                <span>68 votes</span>
-              </div>
-            </div>
-
-            {/* Vote 3 */}
-            <div>
-              <div className="relative w-full bg-[#202842] h-[12px] rounded-3xl mb-2">
-                <div
-                  // className={`absolute left-0 right-0 w-[${voteWidth}%] bg-[#4463D1] h-[12px] rounded-3xl`}
-                  className="absolute left-0 right-0 w-[16.6%] bg-[#4463D1] h-[12px] rounded-3xl"
-                ></div>
-              </div>
-              {/* labels */}
-              <div className="flex justify-between">
-                <span>Idowu Liberty</span>
-                <span>45 votes</span>
-              </div>
-            </div>
-
-            {/*  Testing */}
-            <div>
-              <div className="relative flex h-[12px]     mb-2">
-                <div className="z-5 absolute w-full h-full bg-[#202842] rounded-3xl mb-2"></div>
-                <div
-                  className="z-10 left-0 right-0 w-[16.6%] bg-[#4463D1] h-[12px] rounded-3xl"
-                  // style={{ width: "80%" }}
-                  style={style}
-                ></div>
-              </div>
-              {/* labels */}
-              <div className="flex justify-between">
-                <span>Oladipupo Michael</span>
-                <span>37 votes</span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

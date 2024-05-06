@@ -65,18 +65,40 @@
 
 //// With Drag and Drop support functionality
 
-import React, { ChangeEvent, DragEvent, useState } from "react";
+import React, { ChangeEvent, DragEvent, SetStateAction, useState } from "react";
 import UploadPlaceHolder from "./UploadPlaceHolder";
 
-const CustomFileUpload = () => {
+interface fileUploadProps {
+  formData: {
+    title: string;
+    description: string;
+    type: string;
+    options: string[];
+    votesNo: number;
+    imgLink: string;
+  };
+  setFormData: React.Dispatch<
+    SetStateAction<{
+      title: string;
+      description: string;
+      type: string;
+      options: string[];
+      votesNo: number;
+      imgLink: string;
+    }>
+  >;
+}
+
+const CustomFileUpload = ({ formData, setFormData }: fileUploadProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const processFile = (file: File) => {
-    if (file.size > 1048576) {
-      // 1MB limit
-      setError("File size should not exceed 1 MB");
+    if (file.size > 2097152) {
+      // 1MB limit == 1048576
+      // 2MB limit
+      setError("File size should not exceed 2 MB");
       setSelectedFile(null);
       setPreviewUrl(null);
     } else {
@@ -84,6 +106,9 @@ const CustomFileUpload = () => {
 
       setPreviewUrl(URL.createObjectURL(file));
       setError(null);
+
+      // Update formData with imgLink
+      setFormData({ ...formData, imgLink: URL.createObjectURL(file) });
     }
   };
 
@@ -92,6 +117,11 @@ const CustomFileUpload = () => {
     if (files && files.length > 0) {
       processFile(files[0]);
     }
+
+    console.log(event.target.files);
+
+    // const { name, value } = e.target;
+    // setFormData({ ...formData, [name]: value });
   };
 
   const onFileDrop = (event: DragEvent<HTMLDivElement>) => {
