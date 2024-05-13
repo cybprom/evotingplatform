@@ -145,13 +145,15 @@ export default function Navbar() {
   return (
     <div className="mt-2">
       <div className="fixed top-0 right-0 left-0 flex justify-between items-center bg-[#0D0D0D] z-20 border-b border-[#434343] p-4 px-5 pb-3 md:p-6 md:px-14 md:pb-4 mx-auto">
-        <Image
-          src="/evotingLogo.svg"
-          width={180}
-          height={35}
-          alt="Logo"
-          className="w-[160px] md:w-[190px]"
-        />
+        <Link href={"/"}>
+          <Image
+            src="/evotingLogo.svg"
+            width={180}
+            height={35}
+            alt="Logo"
+            className="w-[160px] md:w-[190px]"
+          />
+        </Link>
         <div className="flex items-center">
           {/* <button className=" text-white border-[#2B2B2B] border-2 rounded-full md:px-5 md:py-3">
             {word}
