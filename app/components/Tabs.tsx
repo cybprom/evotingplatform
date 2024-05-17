@@ -132,7 +132,7 @@ export default function Tabs() {
           <p className="text-sm text-gray-500 dark:text-gray-400">
             This is some placeholder content the{" "}
             <strong className="font-medium text-gray-800 dark:text-white">
-              My proposals tab's associated content
+              My proposals tab&apos;s associated content
             </strong>
             . Clicking another tab will toggle the visibility of this one for
             the next. The tab JavaScript swaps classes to control the content
@@ -150,7 +150,7 @@ export default function Tabs() {
           <p className="text-sm text-gray-500 dark:text-gray-400">
             This is some placeholder content the{" "}
             <strong className="font-medium text-gray-800 dark:text-white">
-              Voted tab's associated content
+              Voted tab&apos;s associated content
             </strong>
             . Clicking another tab will toggle the visibility of this one for
             the next. The tab JavaScript swaps classes to control the content

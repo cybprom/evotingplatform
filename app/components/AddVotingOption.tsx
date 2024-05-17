@@ -122,7 +122,10 @@ export default function AddVotingOption({
             <div>
               <div className="mt-4 space-y-5">
                 {divs.map((divContent, index) => (
-                  <div className="text-center border border-[#808080] rounded-[32px] py-2 py4 px-10 outline-none flex justify-between items-center">
+                  <div
+                    key={index}
+                    className="text-center border border-[#808080] rounded-[32px] py-2 py4 px-10 outline-none flex justify-between items-center"
+                  >
                     {/* <div>{index + 1}</div> */}
                     <div
                       key={index}

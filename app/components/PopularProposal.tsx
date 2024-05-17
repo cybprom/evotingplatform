@@ -152,8 +152,8 @@ export default function PopularProposal() {
             </tr>
           </thead>
           <tbody className="text-white">
-            {proposal.map((proposal) => (
-              <tr className="bgwhite darkbg-gray-800">
+            {proposal.map((proposal, index) => (
+              <tr key={index} className="bgwhite darkbg-gray-800">
                 {/* <Link href={`/proposal/${proposal._id}`}></Link> */}
                 <th
                   scope="row"
