@@ -5,6 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import voteContract from "@/ethereum/vote";
 // import ConnectWalletButton from "./ConnectWalletButton";
+
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
 export interface AccountType {
   address?: string;
   balance?: string;
