@@ -247,11 +247,12 @@ export default function Navbar() {
 
             {isDropdownOpen && (
               <div className=" absolute right-0 top-11 md:top-14 bg-[#0D0D0D] border-2 border-[#434343] rounded-2xl w-max px-2 py-4 md:px-2 md:py-4 text-white space-y7 md:space-y-2">
+                {/* Enable this later */}
                 <Link
-                  onClick={() => setIsDropdownOpen(false)}
+                  // onClick={() => setIsDropdownOpen(false)}
                   // href={"/create-private"}
                   href={"/"}
-                  className="flex items-center hover:bg-[#1C1C1C] hover:rounded-2xl px-2 py-3 md:px-5 md:py-3"
+                  className="flex items-center text-gray-500 hoverbg-[#1C1C1C] hoverrounded-2xl px-2 py-3 md:px-5 md:py-3 cursor-text"
                 >
                   <span className="mr-2">
                     <svg
@@ -265,7 +266,8 @@ export default function Navbar() {
                         fillRule="evenodd"
                         clipRule="evenodd"
                         d="M8.00002 1.33334C9.79252 1.33334 11.2546 2.74821 11.3303 4.52208L11.3334 4.66668V6.66668C12.4379 6.66668 13.3334 7.56211 13.3334 8.66668V12.6667C13.3334 13.7712 12.4379 14.6667 11.3334 14.6667H4.66669C3.56212 14.6667 2.66669 13.7712 2.66669 12.6667V8.66668C2.66669 7.56211 3.56212 6.66668 4.66669 6.66668V4.66668C4.66669 2.82573 6.15907 1.33334 8.00002 1.33334ZM11.3334 8.00001H4.66669C4.2985 8.00001 4.00002 8.29849 4.00002 8.66668V12.6667C4.00002 13.0349 4.2985 13.3333 4.66669 13.3333H11.3334C11.7015 13.3333 12 13.0349 12 12.6667V8.66668C12 8.29849 11.7015 8.00001 11.3334 8.00001ZM8.11754 2.67007L8.00002 2.66668C6.9349 2.66668 6.06425 3.49929 6.00342 4.54916L6.00002 4.66668V6.66668H10V4.66668C10 3.60156 9.16741 2.7309 8.11754 2.67007L8.00002 2.66668L8.11754 2.67007Z"
-                        fill="white"
+                        // fill="white"
+                        fill="gray"
                       />
                     </svg>
                   </span>
