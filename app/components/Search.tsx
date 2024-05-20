@@ -23,6 +23,12 @@ export default function Search({ onSearch }: SearchProps) {
     }
   };
 
+  // testing -- doesn't work te way i want
+  // const handleOnInput = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setQuery(e.target.value);
+  //   onSearch(query);
+  // };
+
   console.log(query);
   return (
     <div className="flex items-center text-white border-[#2B2B2B] border rounded-full px-4 py-4 md:px-5 md:py-3">
@@ -50,6 +56,7 @@ export default function Search({ onSearch }: SearchProps) {
           value={query}
           onChange={handleOnChange}
           onKeyDown={handleKeyDown}
+          // onInput={handleOnInput}
         />
       </form>
     </div>
