@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, KeyboardEvent, useState } from "react";
 
 type SearchProps = {
   onSearch: (query: string) => void;
@@ -14,6 +14,13 @@ export default function Search({ onSearch }: SearchProps) {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearch(query);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      onSearch(query);
+    }
   };
 
   console.log(query);
@@ -42,6 +49,7 @@ export default function Search({ onSearch }: SearchProps) {
           placeholder="Search"
           value={query}
           onChange={handleOnChange}
+          onKeyDown={handleKeyDown}
         />
       </form>
     </div>

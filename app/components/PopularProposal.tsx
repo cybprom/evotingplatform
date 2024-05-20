@@ -218,7 +218,9 @@ export default function PopularProposal({ results }: PopularProposalProps) {
                 </tr>
               ))
             ) : (
-              <p className="p5 w-full mt-5 ">No results found</p>
+              <tr className="p5 w-full mt-5 flex justify-center ">
+                No results found
+              </tr>
             )}
           </tbody>
         </table>
