@@ -170,7 +170,7 @@ export default function Navbar() {
               onClick={disconnectWalletToogle}
             >
               {walletAddress ? (
-                <p className="text-white border-[#2B2B2B] border-2 rounded-full md:px-5 md:py-3">
+                <p className="text-white border-[#2B2B2B] border-2 rounded-full px-2.5 py-1.5 md:px-5 md:py-3">
                   {walletAddress.slice(0, 5)}...
                   {walletAddress.slice(38)}
                 </p>

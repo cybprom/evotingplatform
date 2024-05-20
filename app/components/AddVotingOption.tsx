@@ -134,7 +134,7 @@ export default function AddVotingOption({
                       onBlur={handleContentChange}
                       onKeyDown={handleKeyDown}
                       ref={divRef}
-                      className="flex justify-center outline-none break-words bg-slate-400"
+                      className="flex justify-center outline-none break-words bgslate-400"
                       // className="text-center border border-[#808080] rounded-[32px] py-4 px-10 outline-none"
                     >
                       {divContent}

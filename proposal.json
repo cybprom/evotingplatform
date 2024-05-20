@@ -1,6 +1,6 @@
 [
   {
-    "_id": "1",
+    "_id": 1,
     "creator": "Damola.eth",
     "name": "CSE CLASS ELECTION",
     "type": "Private",
@@ -25,7 +25,7 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   {
-    "_id": "2",
+    "_id": 2,
     "creator": "0xbb...7gb",
     "name": "Push for SUG Election",
     "type": "Public",
@@ -50,7 +50,7 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   {
-    "_id": "3",
+    "_id": 3,
     "creator": "0xCt2h...5bny",
     "name": "Desolution of political parties",
     "type": "Private",
@@ -75,7 +75,7 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   {
-    "_id": "4",
+    "_id": 4,
     "creator": "cybprom.eth",
     "name": "Genreal School Election",
     "type": "Public",
@@ -100,7 +100,7 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   {
-    "_id": "5",
+    "_id": 5,
     "creator": "Tanim0la.eth",
     "name": "Mock Election Test 1",
     "type": "Private",
@@ -125,7 +125,7 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   {
-    "_id": "6",
+    "_id": 6,
     "creator": "Vosibop.eth",
     "name": "Mock Election Test 2",
     "type": "Private",
