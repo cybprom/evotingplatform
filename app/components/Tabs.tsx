@@ -14,7 +14,6 @@ export default function Tabs() {
   const toggle = (i: number) => {
     setClicked(i);
   };
-  console.log(results);
 
   const handleSearch = (query: string) => {
     const filteredResults = proposal.filter((proposal) =>

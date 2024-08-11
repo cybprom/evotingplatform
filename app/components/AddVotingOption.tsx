@@ -90,7 +90,7 @@ export default function AddVotingOption({
     // const { name, value } = e.target;
     setFormData({ ...formData, options: options });
     onSubmit();
-    console.log(formData);
+    // console.log(formData);
   };
 
   const isButtonActive = options.length > 0;
