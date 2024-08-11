@@ -4,6 +4,11 @@ import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
+interface Option {
+  id: number;
+  value: string;
+  saved: boolean;
+}
 interface previewProps {
   onPrev: () => void;
   onSubmit: () => void;
@@ -11,7 +16,7 @@ interface previewProps {
     title: string;
     description: string;
     type: string;
-    options: string[];
+    options: Option[];
     votesNo: number;
     imgLink: string;
   };
@@ -226,7 +231,7 @@ export default function Preview({ onPrev, onSubmit, formData }: previewProps) {
                     activeButton={activeButton}
                   >
                     {/* Ige Adedamola{" "} */}
-                    {option}
+                    {option.value}
                   </VoteButton>
                 ))}
                 {/* <VoteButton

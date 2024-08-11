@@ -16,12 +16,16 @@ import SuccessModal from "./SucessModal";
 // Step 4: Preview
 
 // Success message
-
+interface Option {
+  id: number;
+  value: string;
+  saved: boolean;
+}
 interface FormDataProps {
   title: string;
   description: string;
   type: string;
-  options: string[]; // You can replace 'any' with the type of your options if they have a specific structure
+  options: Option[];
   votesNo: number;
   imgLink: string;
 }
@@ -34,6 +38,7 @@ const steps = [
 
 export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const [formData, setFormData] = useState<FormDataProps>({
     title: "",
@@ -47,23 +52,24 @@ export default function MultiStepForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
+  const updateSelectedFile = (file: React.SetStateAction<File | null>) => {
+    setSelectedFile(file);
+  };
+
   const nextStep = () => setCurrentStep(currentStep + 1);
   const prevStep = () => setCurrentStep(currentStep - 1);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(e.target.value);
   };
   const handleTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(e);
   };
   const handleSelectOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    console.log(e);
   };
 
   const handleFinalSubmit = async () => {
@@ -80,6 +86,7 @@ export default function MultiStepForm() {
   };
 
   console.log(formData);
+  console.log(selectedFile);
 
   // Temporary
   const resetForm = () => {
@@ -98,6 +105,8 @@ export default function MultiStepForm() {
             setFormData={setFormData}
             handleChange={handleChange}
             handleTextArea={handleTextArea}
+            onUpdateSelectedFile={updateSelectedFile}
+            selectedFile={selectedFile}
           />
         )}
       </div>

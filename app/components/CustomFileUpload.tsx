@@ -68,12 +68,18 @@
 import React, { ChangeEvent, DragEvent, SetStateAction, useState } from "react";
 import UploadPlaceHolder from "./UploadPlaceHolder";
 
+interface Option {
+  id: number;
+  value: string;
+  saved: boolean;
+}
+
 interface fileUploadProps {
   formData: {
     title: string;
     description: string;
     type: string;
-    options: string[];
+    options: Option[];
     votesNo: number;
     imgLink: string;
   };
@@ -82,15 +88,20 @@ interface fileUploadProps {
       title: string;
       description: string;
       type: string;
-      options: string[];
+      options: Option[];
       votesNo: number;
       imgLink: string;
     }>
   >;
+  onUpdateSelectedFile: (file: File | null) => void;
 }
 
-const CustomFileUpload = ({ formData, setFormData }: fileUploadProps) => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+const CustomFileUpload = ({
+  formData,
+  setFormData,
+  onUpdateSelectedFile,
+}: fileUploadProps) => {
+  // const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -99,10 +110,12 @@ const CustomFileUpload = ({ formData, setFormData }: fileUploadProps) => {
       // 1MB limit == 1048576
       // 2MB limit
       setError("File size should not exceed 2 MB");
-      setSelectedFile(null);
+      // setSelectedFile(null);
+      onUpdateSelectedFile(null);
       setPreviewUrl(null);
     } else {
-      setSelectedFile(file);
+      // setSelectedFile(file);
+      onUpdateSelectedFile(file);
 
       setPreviewUrl(URL.createObjectURL(file));
       setError(null);

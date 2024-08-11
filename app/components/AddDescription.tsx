@@ -4,13 +4,18 @@ import React, { SetStateAction, useState } from "react";
 import CustomFileUpload from "./CustomFileUpload";
 import UploadPlaceHolder from "./UploadPlaceHolder";
 
+interface Option {
+  id: number;
+  value: string;
+  saved: boolean;
+}
 interface addDescriptionProps {
   onNext: () => void;
   formData: {
     title: string;
     description: string;
     type: string;
-    options: string[];
+    options: Option[];
     votesNo: number;
     imgLink: string;
   };
@@ -19,7 +24,7 @@ interface addDescriptionProps {
       title: string;
       description: string;
       type: string;
-      options: string[];
+      options: Option[];
       votesNo: number;
       imgLink: string;
     }>
@@ -27,6 +32,8 @@ interface addDescriptionProps {
 
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleTextArea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onUpdateSelectedFile: (file: File | null) => void;
+  selectedFile: File | null;
 }
 
 export default function AddDescription({
@@ -35,6 +42,8 @@ export default function AddDescription({
   setFormData,
   handleChange,
   handleTextArea,
+  onUpdateSelectedFile,
+  selectedFile,
 }: addDescriptionProps) {
   const router = useRouter();
 
@@ -54,7 +63,9 @@ export default function AddDescription({
   // Button is enabled only when both input fields are not empty
   // const isButtonActive = text.trim() !== "" && title.trim() !== "";
   const isButtonActive =
-    formData.description.trim() !== "" && formData.title.trim() !== "";
+    formData.description.trim() !== "" &&
+    formData.title.trim() !== "" &&
+    selectedFile;
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -95,7 +106,11 @@ export default function AddDescription({
         <div className="border border-[#434343] rounded-2xl flex flex-col itemscenter justifycenter container mx-auto md:w-[40%] pt-12 pb-6 px-5    h[500px]">
           <div className=" space-y-5">
             {/* DIV for upload */}
-            <CustomFileUpload formData={formData} setFormData={setFormData} />
+            <CustomFileUpload
+              formData={formData}
+              setFormData={setFormData}
+              onUpdateSelectedFile={onUpdateSelectedFile}
+            />
 
             {/* DIV for form */}
             <form onSubmit={handleSubmit} className=" space-y-10">

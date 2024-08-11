@@ -1,8 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { SetStateAction, useRef, useState } from "react";
-import VotingOption from "./EditableNew";
+import React, { SetStateAction, useRef, useState, useEffect } from "react";
 
+interface Option {
+  id: number;
+  value: string;
+  saved: boolean;
+}
 interface votingOptionProps {
   onPrev: () => void;
   onSubmit: () => void;
@@ -10,7 +14,7 @@ interface votingOptionProps {
     title: string;
     description: string;
     type: string;
-    options: Array<string>;
+    options: Option[];
     votesNo: number;
     imgLink: string;
   };
@@ -19,7 +23,7 @@ interface votingOptionProps {
       title: string;
       description: string;
       type: string;
-      options: string[];
+      options: Option[];
       votesNo: number;
       imgLink: string;
     }>
@@ -36,55 +40,60 @@ export default function AddVotingOption({
 }: votingOptionProps) {
   const router = useRouter();
 
-  const [divs, setDivs] = useState<string[]>([]);
+  const [options, setOptions] = useState<Option[]>([]);
+  const latestInputRef = useRef<HTMLInputElement>(null);
 
-  const handleCreateDiv = () => {
-    // const newDiv = `Add option ${divs.length + 1}, click to edit`;
-    const newDiv = `Click to edit`;
-    setDivs([...divs, newDiv]);
+  const handleCreateOptions = () => {
+    const newOption = { id: Date.now(), value: "", saved: false };
+    setOptions([...options, newOption]);
   };
 
-  const divRef = useRef<HTMLDivElement>(null);
-
-  const [isEditable, setIsEditable] = useState(true);
-
-  const handleDeleteDiv = (index: number) => {
-    const updatedDivs = [...divs];
-    updatedDivs.splice(index, 1);
-    setDivs(updatedDivs);
+  const handleInputChange = (id: number, value: string) => {
+    setOptions(
+      options.map((option) =>
+        option.id === id ? { ...option, value } : option
+      )
+    );
   };
+
+  const saveOption = (id: number) => {
+    setOptions(
+      options.map((opt) => (opt.id === id ? { ...opt, saved: true } : opt))
+    );
+  };
+
+  const handleDeleteOption = (index: number) => {
+    setOptions((options) => options.filter((opt) => opt.id !== index));
+  };
+
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    id: number
+  ) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      saveOption(id);
+    }
+  };
+
+  useEffect(() => {
+    if (options.length > 0 && latestInputRef.current) {
+      latestInputRef.current.focus();
+    }
+  }, [options.length]);
+
+  ////////////////////
 
   //////////
 
   const handleSubmit = () => {
     // const { name, value } = e.target;
-    setFormData({ ...formData, options: divs });
+    setFormData({ ...formData, options: options });
     onSubmit();
     console.log(formData);
   };
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLDivElement>) => {
-    //   setContent(e.target.textContent || "");
-    const poppedDiv = divs.pop();
-
-    setDivs([...divs, e.target.textContent || ""]);
-    setIsEditable(false);
-
-    console.log(e.target.textContent);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      if (divRef.current) {
-        divRef.current.blur();
-      }
-    }
-  };
-
-  console.log(divs.length);
-  console.log(divs);
-  const isButtonActive = divs.length > 0;
+  const isButtonActive = options.length > 0;
 
   return (
     <div>
@@ -121,37 +130,59 @@ export default function AddVotingOption({
             <p className="text-[#4A4A4A]">Cast your vote</p>
             <div>
               <div className="mt-4 space-y-5">
-                {divs.map((divContent, index) => (
+                {options.map((option, index) => (
                   <div
-                    key={index}
+                    key={option.id}
                     className="text-center border border-[#808080] rounded-[32px] py-2 py4 px-10 outline-none flex justify-between items-center"
                   >
-                    {/* <div>{index + 1}</div> */}
-                    <div
-                      key={index}
-                      contentEditable={true}
-                      suppressContentEditableWarning={true}
-                      onBlur={handleContentChange}
-                      onKeyDown={handleKeyDown}
-                      ref={divRef}
-                      className="flex justify-center outline-none break-words bgslate-400"
-                      // className="text-center border border-[#808080] rounded-[32px] py-4 px-10 outline-none"
-                    >
-                      {divContent}
-                    </div>
-                    <div>
+                    <input
+                      type="text"
+                      value={option.value}
+                      onChange={(e) =>
+                        handleInputChange(option.id, e.target.value)
+                      }
+                      onKeyDown={(e) => handleKeyDown(e, option.id)}
+                      disabled={option.saved}
+                      className={`bg-transparent outline-none w-full`}
+                      placeholder="Enter option"
+                      ref={index === options.length - 1 ? latestInputRef : null}
+                    />
+                    {!option.saved && (
                       <button
-                        onClick={() => handleDeleteDiv(index)}
-                        className=" text-white text-sm"
+                        onClick={() => saveOption(option.id)}
+                        className="p-1 bg-[#4463D1] text-white rounded hover:bg[#4463D1] hover:opacity-90 ml-2"
                       >
-                        X
+                        save
                       </button>
-                    </div>
+                    )}
+                    {option.saved && (
+                      <div>
+                        <button
+                          onClick={() => handleDeleteOption(option.id)}
+                          className=" text-white text-sm"
+                        >
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 12 12"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M7.41425 6.00001L11.7072 1.70701C12.0982 1.31601 12.0982 0.684006 11.7072 0.293006C11.3162 -0.0979941 10.6842 -0.0979941 10.2933 0.293006L6.00025 4.58601L1.70725 0.293006C1.31625 -0.0979941 0.68425 -0.0979941 0.29325 0.293006C-0.09775 0.684006 -0.09775 1.31601 0.29325 1.70701L4.58625 6.00001L0.29325 10.293C-0.09775 10.684 -0.09775 11.316 0.29325 11.707C0.48825 11.902 0.74425 12 1.00025 12C1.25625 12 1.51225 11.902 1.70725 11.707L6.00025 7.41401L10.2933 11.707C10.4882 11.902 10.7443 12 11.0002 12C11.2562 12 11.5122 11.902 11.7072 11.707C12.0982 11.316 12.0982 10.684 11.7072 10.293L7.41425 6.00001Z"
+                              fill="white"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
               <button
-                onClick={handleCreateDiv}
+                onClick={handleCreateOptions}
                 className=" mt-5 w-full text-center text-[#4A4A4A] hover:textwhite bg-[#181717] py-4 px-8 md:px16 font-medium rounded-[32px] flex justify-center transition-all duration-200"
               >
                 <span>
@@ -175,7 +206,7 @@ export default function AddVotingOption({
               {/* continue button */}
               <div className="p-4 mb5 mt-12 -mb-4    flex justify-between">
                 {/* Prev button */}
-                <button
+                {/* <button
                   // className={`text-center py-4 px-10 ${
                   //   isButtonActive
                   //     ? " bg-[#4463D1] text-white shadow-white-inset"
@@ -186,14 +217,14 @@ export default function AddVotingOption({
                   // style={{ boxShadow: "0px 3px 4px 0px #66666640 inset" }}
                 >
                   Prev
-                </button>
+                </button> */}
                 {/* Continue button */}
                 <button
                   className={`text-center py-4 px-10 ${
                     isButtonActive
                       ? " bg-[#4463D1] text-white shadow-white-inset"
                       : "bg-[#1A1A1A] text-[#4A4A4A] "
-                  }  rounded-3xl flex justify-center shadow-white-inset transition-colors mlauto`}
+                  }  rounded-3xl flex justify-center shadow-white-inset transition-colors ml-auto`}
                   disabled={!isButtonActive}
                   // onClick={() => onSubmit()}
                   onClick={handleSubmit}

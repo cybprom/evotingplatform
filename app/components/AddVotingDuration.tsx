@@ -1,8 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
-import VotingOption from "./EditableNew";
 
+interface Option {
+  id: number;
+  value: string;
+  saved: boolean;
+}
 interface votingDurationProps {
   onPrev: () => void;
   onSubmit: () => void;
@@ -10,7 +14,7 @@ interface votingDurationProps {
     title: string;
     description: string;
     type: string;
-    options: string[];
+    options: Option[];
     votesNo: number;
   };
   onNext: () => void;
@@ -96,7 +100,7 @@ export default function AddVotingDuration({
           {/* preview button */}
           <div className="p-4 -mb-5 mt-12    flex justify-between">
             {/* Prev button */}
-            <button
+            {/* <button
               // className={`text-center py-4 px-10 ${
               //   isButtonActive
               //     ? " bg-[#4463D1] text-white shadow-white-inset"
@@ -107,7 +111,7 @@ export default function AddVotingDuration({
               // style={{ boxShadow: "0px 3px 4px 0px #66666640 inset" }}
             >
               Prev
-            </button>
+            </button> */}
             <button
               // className={`text-center py-4 px-10 ${
               //   isButtonActive

@@ -102,15 +102,6 @@ export default function Tabs() {
           role="tabpanel"
           aria-labelledby="profile-tab"
         >
-          {/* <p className="text-sm text-gray-500 dark:text-gray-400">
-            This is some placeholder content the{" "}
-            <strong className="font-medium text-gray-800 dark:text-white">
-              Popular proposals tab's associated content
-            </strong>
-            . Clicking another tab will toggle the visibility of this one for
-            the next. The tab JavaScript swaps classes to control the content
-            visibility and styling.
-          </p> */}
           {/* <PopularProposal results={results} /> */}
           <PopularProposal results={results} />
         </div>

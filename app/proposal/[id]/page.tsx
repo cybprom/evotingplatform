@@ -161,8 +161,8 @@ export default function ProposalPage() {
                           gradientUnits="userSpaceOnUse"
                           gradientTransform="translate(7.3125 5.0625) rotate(119.578) scale(7.97702)"
                         >
-                          <stop stop-color="#F0F0F0" />
-                          <stop offset="0.5625" stop-color="#506FDD" />
+                          <stop stopColor="#F0F0F0" />
+                          <stop offset="0.5625" stopColor="#506FDD" />
                         </radialGradient>
                       </defs>
                     </svg>
