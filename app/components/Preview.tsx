@@ -56,7 +56,7 @@ export default function Preview({ onPrev, onSubmit, formData }: previewProps) {
           // }  rounded-3xl flex justify-center shadow-white-inset transition-colors ml-auto`}
           type="button"
           onClick={onSubmit}
-          className="wfull text-center py-[10px] md:py-3 px-10 rounded-3xl flex justify-center shadow-white-inset transition-colors text-white bg-[#4463D1] ml-auto"
+          className="wfull text-center py-[10px] md:py-3 px-10 rounded-3xl flex justify-center shadowwhite-inset transition-colors text-white bg-[#4463D1] ml-auto"
           // style={{ boxShadow: "0px 3px 4px 0px #66666640 inset" }}
         >
           Create

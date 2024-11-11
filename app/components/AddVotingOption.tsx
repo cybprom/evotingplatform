@@ -220,16 +220,13 @@ export default function AddVotingOption({
                 </button> */}
                 {/* Continue button */}
                 <button
-                  className={`text-center py-4 px-10 ${
+                  className={`text-center py-4 px-8 ${
                     isButtonActive
-                      ? " bg-[#4463D1] text-white shadow-white-inset"
+                      ? " bg-[#4463D1] text-white shadow-whiteinset"
                       : "bg-[#1A1A1A] text-[#4A4A4A] "
-                  }  rounded-3xl flex justify-center shadow-white-inset transition-colors ml-auto`}
+                  }  rounded-3xl flex justify-center shadow-whiteinset transition-colors ml-auto`}
                   disabled={!isButtonActive}
-                  // onClick={() => onSubmit()}
                   onClick={handleSubmit}
-                  // className="wfull text-center py-4 px-10 rounded-3xl flex justify-center shadow-whiteinset transition-colors bg-[#1A1A1A]"
-                  // style={{ boxShadow: "0px 3px 4px 0px #66666640 inset" }}
                 >
                   continue
                 </button>

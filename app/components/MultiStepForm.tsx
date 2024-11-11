@@ -7,7 +7,7 @@ import Preview from "./Preview";
 import LoadingModal from "./LoadingModal";
 import SuccessModal from "./SucessModal";
 
-// This is thhe  parent component
+// This is the parent component
 // This component will control and manage steps and data
 
 // Step 1: Proposal title and description

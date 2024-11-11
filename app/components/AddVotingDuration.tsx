@@ -76,7 +76,6 @@ export default function AddVotingDuration({
                 name="duration"
                 id="duration"
                 className="border border-[#434343] bg-[#131313] outline-none p-3 rounded-lg mt-3"
-                // style={{ backgroundColor: "transparent" }}
               >
                 <option value="24 hours">24 hours</option>
                 <option value="One week">One week</option>
@@ -119,7 +118,7 @@ export default function AddVotingDuration({
               //     : "bg-[#1A1A1A] text-[#4A4A4A] "
               // }  rounded-3xl flex justify-center shadow-white-inset transition-colors ml-auto`}
               onClick={onSubmit}
-              className="wfull text-center py-4 px-8 px10 rounded-3xl flex justify-center shadow-white-inset transition-colors text-white bg-[#4463D1] ml-auto"
+              className="wfull text-center py-4 px-8 rounded-3xl flex justify-center shadowwhite-inset transition-colors text-white bg-[#4463D1] ml-auto"
               // style={{ boxShadow: "0px 3px 4px 0px #66666640 inset" }}
             >
               preview

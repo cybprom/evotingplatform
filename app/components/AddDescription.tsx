@@ -153,11 +153,11 @@ export default function AddDescription({
             <div className="p-4 mb5">
               <button
                 type="submit"
-                className={`text-center py-4 px-10 ${
+                className={`text-center py-4 px-8 ${
                   isButtonActive
-                    ? " bg-[#4463D1] text-white shadow-white-inset"
+                    ? " bg-[#4463D1] text-white shadowwhite-inset"
                     : "bg-[#1A1A1A] text-[#4A4A4A] "
-                }  rounded-3xl flex justify-center shadow-white-inset transition-colors ml-auto`}
+                }  rounded-3xl flex justify-center shadowwhite-inset transition-colors ml-auto`}
                 disabled={!isButtonActive}
                 onClick={() => onNext()}
                 // className="wfull text-center py-4 px-10 rounded-3xl flex justify-center shadow-whiteinset transition-colors bg-[#1A1A1A]"

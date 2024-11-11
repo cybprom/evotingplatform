@@ -1,4 +1,3 @@
-// components/ErrorModal.tsx
 import React from "react";
 
 interface ErrorModalProps {

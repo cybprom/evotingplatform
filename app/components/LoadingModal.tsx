@@ -1,4 +1,3 @@
-// components/LoadingModal.tsx
 import React from "react";
 
 const LoadingModal: React.FC = () => {
@@ -6,10 +5,6 @@ const LoadingModal: React.FC = () => {
     <div className="fixed top-0 left-0 w-full h-full flex md:items-center md:justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
       <div className="fixed bottom-0 w-full md:relative bg-[#151515] md:border md:border-[#434343] p-9 py-11 md:rounded-2xl shadow-lg md:w-1/3">
         <div className=" py8 flex flex-col justify-center items-center mb-8 md:mb-0">
-          {/* <div className="flex items-center justify-center">
-            <div className="animatespin animate-ping rounded-full h-12 w-12 border-t-2border-b-2 borderindigo-500 bg-indigo-500"></div>
-            <div className="animatespin animate-ping rounded-full h-12 w-12 border-t-2border-b-2 borderindigo-500 bg-indigo-500"></div>
-          </div> */}
           <svg
             width="175"
             height="175"
